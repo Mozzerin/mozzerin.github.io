@@ -264,7 +264,7 @@
       <p class="role-line"><span id="typed"></span><span class="cursor"></span></p>
       <p class="lead">
         I deliver backend systems and stay responsible for them in production.
-        <b>14+ years</b> in banking and fintech, on high-load, event-driven systems
+        <b>15+ years</b> in banking and fintech, on high-load, event-driven systems
         in <b>Kotlin</b>, <b>Java</b> and <b>Go</b>.
       </p>
       <div class="hero-actions">
@@ -287,7 +287,7 @@
     <h2>Results in production</h2>
     <p class="sub">A few numbers from systems I built and ran.</p>
     <div class="metrics reveal">
-      <div class="metric"><div class="num"><span data-count="14">0</span><em>+</em></div><div class="label">years building backend systems</div><div class="where">2011 — 2026</div></div>
+      <div class="metric"><div class="num"><span data-count="15">0</span><em>+</em></div><div class="label">years building backend systems</div><div class="where">2011 — 2026</div></div>
       <div class="metric"><div class="num"><span data-count="100">0</span><em>+</em></div><div class="label">services migrated to Google Cloud</div><div class="where">Prosper</div></div>
       <div class="metric"><div class="num"><span data-count="1000">0</span><em>+</em></div><div class="label">mobile payments per hour through the gateway</div><div class="where">Swissquote</div></div>
       <div class="metric"><div class="num"><span data-count="20">0</span><em>+</em></div><div class="label">white-label banking clients on the new platform</div><div class="where">Swissquote</div></div>
@@ -596,13 +596,13 @@ const JOBS = [
   whoami        short intro
   experience    roles, newest first
   impact        numbers from production
-  skills        tech stack
-  stack &lt;tech&gt;  where I used a technology, e.g. <span class="p">stack kotlin</span>
+  skills        tech stack with years of experience
+  skill &lt;tech&gt;  what I built with it, e.g. <span class="p">skill java</span>
   contact       how to reach me
   cv            download the PDF
   clear         clear the screen`,
     whoami: () => `Mikhail Mozhzherin, Senior Software Engineer in Zurich.
-14+ years delivering backend systems in banking and fintech,
+15+ years delivering backend systems in banking and fintech,
 and staying responsible for them in production.
 Kotlin · Java · Go. Event-driven, high-load, eventually consistent.`,
     experience: () => JOBS.map(j => `<span class="k">${j.dates.padEnd(20)}</span> ${j.company} <span class="m">— ${j.title}</span>`).join('\n') + `\n<span class="m">tip: type "open swissquote" to expand a role on the page</span>`,
@@ -613,7 +613,7 @@ Kotlin · Java · Go. Event-driven, high-load, eventually consistent.`,
   -20%   customer complaints (consent platform)
   -20%   support workload (AI chat assistant)
 days→min onboarding time (KYC automation)`,
-    skills: () => SKILLS.map(s => `<span class="p">${s}</span>`).join('  '),
+    skills: () => skillsTable(),
     contact: () => `email     <a href="mailto:mozzerin@gmail.com">mozzerin@gmail.com</a>
 phone     <a href="tel:+41782562952">+41 78 256 2952</a>
 linkedin  <a href="https://www.linkedin.com/in/mozzerin" target="_blank" rel="noopener">linkedin.com/in/mozzerin</a>
@@ -627,12 +627,48 @@ permit    Swiss B, no sponsorship required`,
     sudo: () => 'try: sudo hire-me',
     exit: () => 'nice try. you can close the tab though.',
   };
+  // what was built with each technology, by company
+  const SKILL_INFO = {
+    'Java': { 'T-Systems': 'cloud billing system for Deutsche Telekom Cloud, VDV billing integration, system test automation framework',
+              'Prosper Funding': 'backend services alongside Kotlin',
+              'Swissquote Bank': 'mobile payment gateway (1,000+ payments/hour), KYC onboarding, white-label eBanking platform' },
+    'Kotlin': { 'Noumena Digital AG': 'NPL language tooling: compiler work, CLI, LSP, MCP server',
+                'Prosper Funding': 'messaging gateway (email/SMS/push), consent platform, DSL for legal consent rules',
+                'EPAM Systems': 'ingestion pipelines for document processing' },
+    'Go': { 'BLP Digital': 'analytics services and document pipelines (~20k documents/day)' },
+    'Python': { 'BLP Digital': 'analytics services' },
+    'Scala': { 'EPAM Systems': 'Big Data ingestion pipelines' },
+    'Spring Boot': { 'T-Systems': 'billing services', 'Prosper Funding': 'microservices, messaging gateway', 'Swissquote Bank': 'payment gateway and eBanking backend' },
+    'Kafka': { 'T-Systems': 'event streaming in the cloud billing system' },
+    'GCP': { 'Prosper Funding': 'migrated 100+ services, Pub/Sub messaging, Spanner' },
+    'Spanner': { 'Prosper Funding': 'migrated databases from MSSQL to Spanner' },
+    'AWS': { 'EPAM Systems': 'Big Data pipelines' },
+    'Kubernetes': { 'Prosper Funding': 'services with Helm on GCP', 'Swissquote Bank': 'banking services', 'BLP Digital': '~10 Go and Python services' },
+    'GraphQL': { 'Prosper Funding': 'GraphQL federation across microservices' },
+    'Oracle': { 'T-Systems': 'PL/SQL, Liquibase', 'Prosper Funding': 'PL/SQL, Liquibase, MSSQL', 'Swissquote Bank': 'PL/SQL, Liquibase' },
+    'MongoDB': { 'T-Systems': 'billing platform' },
+    'OAuth2 / IAM': { 'Prosper Funding': 'API security', 'Swissquote Bank': 'API security in a regulated bank', 'Noumena Digital AG': 'platform authorization model, multi-tenant IAM' },
+    'React': { 'Swissquote Bank': 'frontend work', 'Noumena Digital AG': 'frontend work', 'BLP Digital': 'frontend work' },
+    'DSL & Compilers': { 'Prosper Funding': 'Kotlin DSL that legal could read', 'Noumena Digital AG': 'NPL: a new programming language, compiler and LSP' },
+    'AI / LLM': { 'Swissquote Bank': 'AI chat assistant in the banking app (-20% support load)', 'Noumena Digital AG': 'MCP server for AI agents' },
+  };
+  const yearsOf = s => JOBS.filter(j => j.tech.includes(s)).reduce((a, j) => a + (j.to - j.from), 0);
+  const fmtYears = y => y < 1 ? '&lt;1 yr' : `~${Math.round(y)} yr${Math.round(y) > 1 ? 's' : ''}`;
+  function skillsTable() {
+    const rows = SKILLS.map(s => ({ s, y: yearsOf(s), n: JOBS.filter(j => j.tech.includes(s)).length }))
+      .sort((a, b) => b.y - a.y);
+    return `<span class="k">${'technology'.padEnd(18)}${'experience'.padEnd(12)}roles</span>\n` +
+      rows.map(r => `<span class="p">${r.s.padEnd(18)}</span>${fmtYears(r.y).replace('&lt;', '<').padEnd(12).replace('<', '&lt;')}${r.n}`).join('\n') +
+      `\n\n<span class="m">details: skill java · skill kotlin · skill kafka · ...</span>`;
+  }
   function stack(arg) {
     const q = arg.toLowerCase();
-    const skill = SKILLS.find(s => s.toLowerCase().includes(q)) || q;
-    const hits = JOBS.filter(j => j.tech.some(t => t.toLowerCase().includes(q)));
-    if (!hits.length) return `no roles found for "${esc(arg)}". try: ${SKILLS.slice(0, 6).join(', ').toLowerCase()}`;
-    return `<span class="k">${esc(skill)}</span> used at:\n` + hits.map(j => `  ${j.company.padEnd(20)} <span class="m">${j.dates}</span>`).join('\n');
+    const skill = SKILLS.find(s => s.toLowerCase() === q) || SKILLS.find(s => s.toLowerCase().startsWith(q)) || SKILLS.find(s => s.toLowerCase().includes(q));
+    if (!skill) return `no roles found for "${esc(arg)}". type <span class="p">skills</span> for the full list`;
+    const hits = JOBS.filter(j => j.tech.includes(skill));
+    const info = SKILL_INFO[skill] || {};
+    return `<span class="k">${esc(skill)}</span> <span class="m">· ${fmtYears(yearsOf(skill))} · ${hits.length} role${hits.length > 1 ? 's' : ''}</span>\n` +
+      hits.map(j => `  <span class="p">${j.company}</span> <span class="m">${j.dates}</span>` + (info[j.company] ? `\n    ${info[j.company]}` : '')).join('\n');
   }
   function run(raw) {
     const cmd = raw.trim();
@@ -642,7 +678,7 @@ permit    Swiss B, no sponsorship required`,
     if (lc === 'clear') { out.innerHTML = ''; return; }
     let res;
     if (CMDS[lc]) res = CMDS[lc]();
-    else if (lc.startsWith('stack ')) res = stack(cmd.slice(6).trim());
+    else if (/^(stack|skill) /.test(lc)) res = stack(cmd.replace(/^\S+\s+/, ''));
     else if (lc.startsWith('open ')) {
       const j = JOBS.find(j => (j.id + ' ' + j.company).toLowerCase().includes(lc.slice(5).trim()));
       if (j) { window.__openJob(j.id, true); res = `opened ${j.company}`; } else res = 'no such role. see: experience';
@@ -658,11 +694,11 @@ permit    Swiss B, no sponsorship required`,
     else if (e.key === 'ArrowUp') { if (hi > 0) { inp.value = hist[--hi]; e.preventDefault(); } }
     else if (e.key === 'ArrowDown') { if (hi < hist.length) { inp.value = hist[++hi] || ''; e.preventDefault(); } }
     else if (e.key === 'Tab') {
-      const m = Object.keys(CMDS).concat(['stack ', 'open ']).filter(k => k.startsWith(inp.value.toLowerCase()));
+      const m = Object.keys(CMDS).concat(['skill ', 'stack ', 'open ']).filter(k => k.startsWith(inp.value.toLowerCase()));
       if (m.length === 1 && inp.value) { inp.value = m[0]; e.preventDefault(); }
     }
   });
-  ['help', 'whoami', 'impact', 'stack kotlin', 'contact', 'sudo hire-me'].forEach(c => {
+  ['help', 'whoami', 'skills', 'skill java', 'skill kotlin', 'impact', 'contact', 'sudo hire-me'].forEach(c => {
     const b = document.createElement('button'); b.type = 'button'; b.textContent = c;
     b.addEventListener('click', () => { run(c); inp.focus({ preventScroll: true }); });
     hints.appendChild(b);
