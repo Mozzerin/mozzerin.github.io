@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mikhail Mozhzherin — Backend Engineer</title>
+<meta name="description" content="Mikhail Mozhzherin, Senior Software Engineer in Zurich. Backend and distributed systems in Kotlin, Java and Go.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e13;
+    --bg-2: #0f141b;
+    --surface: #121922;
+    --border: #1f2a37;
+    --border-2: #2b3a4b;
+    --text: #e6edf3;
+    --muted: #8b98a6;
+    --dim: #5b6876;
+    --accent: #5eead4;
+    --accent-2: #7aa2ff;
+    --accent-soft: rgba(94, 234, 212, 0.12);
+    --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+    --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+    --radius: 12px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a { color: inherit; }
+  ::selection { background: var(--accent); color: var(--bg); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: var(--mono); }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 20;
+    backdrop-filter: blur(12px);
+    background: rgba(10, 14, 19, 0.72);
+    border-bottom: 1px solid var(--border);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 16px; }
+  .logo { font-family: var(--mono); font-weight: 600; font-size: 15px; text-decoration: none; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 24px; align-items: center; font-size: 14px; }
+  .nav-links a { text-decoration: none; color: var(--muted); transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px; border-radius: 8px;
+    font-size: 14px; font-weight: 600; text-decoration: none;
+    border: 1px solid var(--border-2); background: var(--surface); color: var(--text);
+    transition: border-color .2s, transform .2s, background .2s; cursor: pointer;
+  }
+  .btn:hover { border-color: var(--accent); transform: translateY(-1px); }
+  .btn.primary { background: var(--accent); color: #062421; border-color: var(--accent); }
+  .btn.primary:hover { background: #7ff3e0; }
+
+  /* hero */
+  .hero { position: relative; min-height: min(calc(100vh - 60px), 860px); display: flex; align-items: center; overflow: hidden; }
+  #flow { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; }
+  .hero::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 30% 40%, transparent 0%, var(--bg) 75%);
+  }
+  .hero .wrap { position: relative; z-index: 2; display: grid; grid-template-columns: auto 1fr; gap: 48px; align-items: center; padding-top: 48px; padding-bottom: 48px; }
+  .photo {
+    width: 210px; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius);
+    border: 1px solid var(--border-2);
+    box-shadow: 0 0 0 6px rgba(94, 234, 212, 0.05), 0 30px 60px -20px rgba(0,0,0,.6);
+  }
+  .status {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 13px; color: var(--accent);
+    background: var(--accent-soft); border: 1px solid rgba(94,234,212,.25);
+    padding: 5px 12px; border-radius: 999px; margin-bottom: 20px;
+  }
+  .status i { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px var(--accent); animation: pulse 2s infinite; }
+  @keyframes pulse { 50% { opacity: .35; } }
+  h1 { font-size: clamp(38px, 6vw, 64px); line-height: 1.05; margin: 0 0 14px; letter-spacing: -1.5px; font-weight: 800; }
+  .role-line { font-family: var(--mono); font-size: clamp(15px, 2vw, 18px); color: var(--muted); margin: 0 0 22px; min-height: 1.6em; }
+  .role-line .cursor { display: inline-block; width: 9px; height: 1.1em; background: var(--accent); vertical-align: text-bottom; margin-left: 2px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .lead { font-size: 18px; color: #c4ced8; max-width: 620px; margin: 0 0 28px; }
+  .lead b { color: var(--text); font-weight: 600; }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
+  .contacts { display: flex; flex-wrap: wrap; gap: 8px 20px; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .contacts a { text-decoration: none; transition: color .2s; }
+  .contacts a:hover { color: var(--accent); }
+
+  /* sections */
+  section { padding: 96px 0; border-top: 1px solid var(--border); }
+  .eyebrow { font-family: var(--mono); font-size: 13px; color: var(--accent); margin: 0 0 10px; }
+  h2 { font-size: clamp(28px, 4vw, 40px); margin: 0 0 14px; letter-spacing: -0.8px; line-height: 1.15; }
+  .sub { color: var(--muted); max-width: 640px; margin: 0 0 40px; }
+
+  /* metrics */
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+  .metric { background: var(--bg-2); padding: 28px 24px; transition: background .25s; }
+  .metric:hover { background: var(--surface); }
+  .metric .num { font-family: var(--mono); font-size: clamp(32px, 4.5vw, 46px); font-weight: 600; color: var(--text); line-height: 1.1; }
+  .metric .num em { font-style: normal; color: var(--accent); }
+  .metric .label { color: var(--muted); font-size: 14px; margin-top: 8px; }
+  .metric .where { font-family: var(--mono); font-size: 12px; color: var(--dim); margin-top: 6px; }
+
+  /* skills filter */
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .chip {
+    font-family: var(--mono); font-size: 13px;
+    padding: 7px 13px; border-radius: 999px; cursor: pointer;
+    border: 1px solid var(--border-2); background: var(--surface); color: #c4ced8;
+    transition: all .18s;
+  }
+  .chip:hover { border-color: var(--accent); color: var(--text); }
+  .chip[aria-pressed="true"] { background: var(--accent); color: #062421; border-color: var(--accent); }
+  .chip .n { opacity: .55; margin-left: 6px; }
+  .filter-status { font-family: var(--mono); font-size: 13px; color: var(--muted); min-height: 22px; display: flex; gap: 14px; align-items: center; margin-bottom: 30px; }
+  .filter-status button { background: none; border: none; color: var(--accent); font: inherit; cursor: pointer; padding: 0; }
+
+  /* year bar */
+  .years { position: relative; height: 46px; margin-bottom: 36px; }
+  .years .track { position: absolute; left: 0; right: 0; top: 14px; height: 6px; background: var(--border); border-radius: 3px; }
+  .seg {
+    position: absolute; top: 10px; height: 14px; border-radius: 4px; cursor: pointer;
+    background: var(--accent-2); opacity: .75; border: 2px solid var(--bg);
+    transition: opacity .2s, transform .2s, background .2s;
+  }
+  .seg:hover, .seg.on { opacity: 1; transform: scaleY(1.35); background: var(--accent); }
+  .seg.dim { opacity: .15; }
+  .years .tick { position: absolute; top: 30px; font-family: var(--mono); font-size: 11px; color: var(--dim); transform: translateX(-50%); }
+
+  /* timeline */
+  .timeline { position: relative; padding-left: 28px; }
+  .timeline::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(var(--accent), var(--accent-2) 60%, var(--border)); }
+  .job { position: relative; margin-bottom: 16px; transition: opacity .25s, filter .25s; }
+  .job::before {
+    content: ""; position: absolute; left: -28px; top: 26px; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--accent); transition: background .2s, box-shadow .2s;
+  }
+  .job.open::before, .job.match::before { background: var(--accent); box-shadow: 0 0 12px var(--accent); }
+  .job.dim { opacity: .28; filter: grayscale(1); }
+  .card {
+    background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius);
+    transition: border-color .2s, background .2s;
+  }
+  .job.open .card, .card:hover { border-color: var(--border-2); background: var(--surface); }
+  .card-head {
+    width: 100%; text-align: left; background: none; border: none; color: inherit; font: inherit;
+    padding: 20px 22px; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: 4px 16px; align-items: baseline;
+  }
+  .card-head .t { font-weight: 700; font-size: 17px; }
+  .card-head .c { color: var(--accent); font-weight: 600; }
+  .card-head .d { font-family: var(--mono); font-size: 13px; color: var(--muted); white-space: nowrap; }
+  .card-head .hl { grid-column: 1 / -1; color: var(--muted); font-size: 15px; }
+  .card-head .chev { font-family: var(--mono); color: var(--dim); transition: transform .25s; display: inline-block; margin-left: 8px; }
+  .job.open .chev { transform: rotate(90deg); color: var(--accent); }
+  .card-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .3s ease; }
+  .job.open .card-body { grid-template-rows: 1fr; }
+  .card-body > div { overflow: hidden; }
+  .card-body ul { margin: 0; padding: 0 22px 0 40px; color: #c4ced8; font-size: 15px; }
+  .card-body li { margin-bottom: 7px; }
+  .card-body li::marker { color: var(--accent); }
+  .card-body li b { color: var(--text); font-weight: 600; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 22px 20px; }
+  .tag { font-family: var(--mono); font-size: 12px; padding: 3px 9px; border-radius: 6px; background: var(--bg); border: 1px solid var(--border); color: var(--muted); transition: all .2s; }
+  .tag.hit { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .loc { font-family: var(--mono); font-size: 12px; color: var(--dim); }
+
+  /* terminal */
+  .term {
+    background: #070a0e; border: 1px solid var(--border-2); border-radius: var(--radius);
+    overflow: hidden; box-shadow: 0 30px 80px -30px rgba(0,0,0,.8);
+    font-family: var(--mono); font-size: 14px;
+  }
+  .term-bar { display: flex; align-items: center; gap: 8px; padding: 11px 14px; background: var(--surface); border-bottom: 1px solid var(--border); }
+  .term-bar i { width: 12px; height: 12px; border-radius: 50%; background: #ff5f57; }
+  .term-bar i:nth-child(2) { background: #febc2e; }
+  .term-bar i:nth-child(3) { background: #28c840; }
+  .term-bar span { margin-left: 10px; color: var(--dim); font-size: 12px; }
+  .term-out { height: 340px; overflow-y: auto; padding: 16px 18px 6px; white-space: pre-wrap; word-break: break-word; color: #c4ced8; line-height: 1.55; }
+  .term-out .p { color: var(--accent); }
+  .term-out .k { color: var(--accent-2); }
+  .term-out .m { color: var(--dim); }
+  .term-out a { color: var(--accent); }
+  .term-in { display: flex; align-items: center; gap: 8px; padding: 6px 18px 16px; }
+  .term-in label { color: var(--accent); white-space: nowrap; }
+  .term-in input { flex: 1; min-width: 0; background: transparent; border: none; outline: none; color: var(--text); font: inherit; caret-color: var(--accent); }
+  .term-hints { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .term-hints button { font-family: var(--mono); font-size: 12px; padding: 5px 10px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); color: var(--muted); cursor: pointer; transition: all .2s; }
+  .term-hints button:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* about / footer */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  .box { background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .box h3 { font-family: var(--mono); font-size: 13px; color: var(--accent); font-weight: 500; margin: 0 0 12px; text-transform: lowercase; }
+  .box p { margin: 0 0 6px; color: #c4ced8; font-size: 15px; }
+  .box .m { color: var(--muted); font-size: 14px; }
+  footer { border-top: 1px solid var(--border); padding: 40px 0 60px; }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; align-items: center; }
+  footer .big { font-size: clamp(22px, 3vw, 30px); font-weight: 700; letter-spacing: -0.5px; margin: 0 0 6px; }
+  footer .m { color: var(--muted); font-family: var(--mono); font-size: 13px; }
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (max-width: 860px) {
+    .metrics { grid-template-columns: repeat(2, 1fr); }
+    .about-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 720px) {
+    .nav-links a:not(.btn) { display: none; }
+    .hero { min-height: auto; }
+    .hero .wrap { grid-template-columns: 1fr; gap: 28px; padding-top: 40px; }
+    .photo { width: 150px; }
+    section { padding: 64px 0; }
+    .card-head { grid-template-columns: 1fr; }
+    .card-head .d { white-space: normal; }
+    .years .tick:nth-child(odd) { display: none; }
+    .term-out { height: 300px; font-size: 13px; }
+  }
+  @media (max-width: 480px) {
+    .wrap { padding: 0 16px; }
+    .metrics { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .status i, .role-line .cursor { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">mozzerin<span>.dev</span></a>
+    <div class="nav-links">
+      <a href="#impact">Impact</a>
+      <a href="#experience">Experience</a>
+      <a href="#terminal">Terminal</a>
+      <a href="#contact">Contact</a>
+      <a class="btn primary" href="Mikhail_Mozhzherin_CV_Universal.pdf" download>Download CV</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="flow" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <img class="photo" src="photo.jpg" alt="Mikhail Mozhzherin">
+    <div>
+      <div class="status"><i></i>Open to new roles · Zurich · B permit</div>
+      <h1>Mikhail Mozhzherin</h1>
+      <p class="role-line"><span id="typed"></span><span class="cursor"></span></p>
+      <p class="lead">
+        I deliver backend systems and stay responsible for them in production.
+        <b>14+ years</b> in banking and fintech, on high-load, event-driven systems
+        in <b>Kotlin</b>, <b>Java</b> and <b>Go</b>.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#experience">See experience</a>
+        <a class="btn" href="mailto:mozzerin@gmail.com">Get in touch</a>
+      </div>
+      <div class="contacts">
+        <a href="mailto:mozzerin@gmail.com">mozzerin@gmail.com</a>
+        <a href="tel:+41782562952">+41 78 256 2952</a>
+        <a href="https://www.linkedin.com/in/mozzerin" target="_blank" rel="noopener">linkedin/mozzerin</a>
+        <a href="https://github.com/mozzerin" target="_blank" rel="noopener">github/mozzerin</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="impact">
+  <div class="wrap">
+    <p class="eyebrow">// impact</p>
+    <h2>Results in production</h2>
+    <p class="sub">A few numbers from systems I built and ran.</p>
+    <div class="metrics reveal">
+      <div class="metric"><div class="num"><span data-count="14">0</span><em>+</em></div><div class="label">years building backend systems</div><div class="where">2011 — 2026</div></div>
+      <div class="metric"><div class="num"><span data-count="100">0</span><em>+</em></div><div class="label">services migrated to Google Cloud</div><div class="where">Prosper</div></div>
+      <div class="metric"><div class="num"><span data-count="1000">0</span><em>+</em></div><div class="label">mobile payments per hour through the gateway</div><div class="where">Swissquote</div></div>
+      <div class="metric"><div class="num"><span data-count="20">0</span><em>+</em></div><div class="label">white-label banking clients on the new platform</div><div class="where">Swissquote</div></div>
+      <div class="metric"><div class="num"><em>~</em><span data-count="20">0</span><em>k</em></div><div class="label">documents processed per day</div><div class="where">BLP Digital</div></div>
+      <div class="metric"><div class="num"><em>−</em><span data-count="20">0</span><em>%</em></div><div class="label">customer complaints after the consent platform</div><div class="where">Prosper</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <p class="eyebrow">// experience</p>
+    <h2>Where I have worked</h2>
+    <p class="sub">Pick a technology to see where I used it. Click a role for details.</p>
+    <div class="chips" id="chips"></div>
+    <div class="filter-status" id="fstatus"></div>
+    <div class="years" id="years"><div class="track"></div></div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<section id="terminal">
+  <div class="wrap">
+    <p class="eyebrow">// for engineers</p>
+    <h2>Or ask the terminal</h2>
+    <p class="sub">Type <span class="mono" style="color:var(--accent)">help</span> to see what it knows.</p>
+    <div class="term reveal">
+      <div class="term-bar"><i></i><i></i><i></i><span>mikhail@zurich: ~</span></div>
+      <div class="term-out" id="tout" aria-live="polite"></div>
+      <div class="term-in">
+        <label for="tin">mikhail@zurich:~$</label>
+        <input id="tin" autocomplete="off" spellcheck="false" aria-label="Terminal command">
+      </div>
+    </div>
+    <div class="term-hints" id="hints"></div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <p class="eyebrow">// about</p>
+    <h2>Education and languages</h2>
+    <div class="about-grid">
+      <div class="box">
+        <h3>education</h3>
+        <p>M.Sc. Computer Science</p>
+        <p>B.Sc. Computer Science</p>
+        <p class="m">St. Petersburg State Polytechnic University</p>
+      </div>
+      <div class="box">
+        <h3>certification</h3>
+        <p>ISTQB</p>
+        <p class="m">Started as a test engineer, and it shows in how I review code.</p>
+      </div>
+      <div class="box">
+        <h3>languages</h3>
+        <p>English — C1</p>
+        <p>German — B1</p>
+        <p>Russian — native</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <p class="big">Let's talk.</p>
+      <p class="m">Zurich, Switzerland · Swiss work permit B, no sponsorship required</p>
+    </div>
+    <div class="hero-actions" style="margin:0">
+      <a class="btn primary" href="mailto:mozzerin@gmail.com">mozzerin@gmail.com</a>
+      <a class="btn" href="Mikhail_Mozhzherin_CV_Universal.pdf" download>Download CV</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- data ---------- */
+const SKILLS = ['Kotlin','Java','Go','Python','Scala','Spring Boot','Kafka','GCP','AWS','Kubernetes','GraphQL','Oracle','Spanner','MongoDB','OAuth2 / IAM','React','DSL & Compilers','AI / LLM'];
+
+const JOBS = [
+  { id:'blp', title:'Lead Senior Software Engineer', company:'BLP Digital', dates:'Feb 2026 – Aug 2026', from:2026.08, to:2026.62, loc:'Zurich',
+    hl:'Analytics platform: ~20k documents a day, 50% more data on the same infrastructure.',
+    bullets:['Led the analytics project across <b>3 teams</b>, covering <b>~10 Go and Python services</b>.',
+             'Designed data processing pipelines that ingest <b>~20k documents per day</b>.',
+             'Collected <b>50% more detailed data</b> on the same infrastructure through architectural changes to the pipelines.'],
+    tech:['Go','Python','Kubernetes','React','CI/CD','GitHub Actions','functional programming'] },
+  { id:'noumena', title:'Lead Senior Software Engineer', company:'Noumena Digital AG', dates:'Feb 2025 – Feb 2026', from:2025.08, to:2026.08, loc:'Zug',
+    hl:'A new programming language and its tooling, used by ~100 developers.',
+    bullets:['Core contributor to <b>NPL</b>, a new programming language for off-chain smart-contract logic: language design, compiler, LSP and IDE tooling.',
+             'Built and open-sourced the <a href="https://github.com/NoumenaDigital/npl-cli" target="_blank" rel="noopener">NPL CLI</a>, used by <b>~100 developers</b>; with the LSP and IDE plugins the whole workflow runs in the IDE and terminal.',
+             'Worked on the authorization model and multi-tenant architecture serving <b>5 tenants</b>.',
+             'Developed a distributed digital asset platform integrated with the Stellar blockchain.',
+             'Built an <b>MCP server</b> that exposes platform capabilities to AI agents.'],
+    tech:['Kotlin','DSL & Compilers','LSP','MCP','AI / LLM','OAuth2 / IAM','React','Stellar'] },
+  { id:'swissquote', title:'Senior Software Engineer', company:'Swissquote Bank', dates:'Mar 2022 – Feb 2025', from:2022.17, to:2025.08, loc:'Gland',
+    hl:'All of the bank’s mobile payments, onboarding from days to minutes.',
+    bullets:['Built backend services for the gateway that processes <b>all of the bank’s mobile payments (1,000+ per hour)</b>.',
+             'Automated onboarding with multi-provider KYC/AML document recognition: <b>from days to minutes</b>, fewer manual identity checks.',
+             'Integrated an AI chat assistant into the banking app, <b>cutting support workload by 20%</b>; built a portal for support agents.',
+             'Re-architected the white-label eBanking configuration platform; <b>20+ white-label clients</b> migrated to it.',
+             'Mentored an offshore team of <b>5–7 engineers</b>; one grew from junior to senior.'],
+    tech:['Java','Spring Boot','Oracle','PL/SQL','Liquibase','OAuth2 / IAM','Kubernetes','React','AI / LLM'] },
+  { id:'prosper', title:'Senior Software Engineer', company:'Prosper Funding', dates:'Apr 2019 – Mar 2022', from:2019.25, to:2022.17, loc:'',
+    hl:'100+ services to GCP, a team of up to 18, 20% fewer complaints.',
+    bullets:['Led an engineering team of <b>up to 18 people</b> as Scrum Master; improved communication across <b>3 cross-functional teams</b>.',
+             'Migrated <b>100+ services to Google Cloud</b> and built a tool for smooth data migration from on-premise databases; moved MSSQL to Spanner.',
+             'Designed an asynchronous messaging gateway for email, SMS and push: <b>30+ messages per second</b>.',
+             'Architected a high-concurrency consent and preference system that <b>cut customer complaints by 20%</b>.',
+             'Built a Kotlin DSL that made consent rules readable for the legal team.',
+             'Introduced GraphQL federation across microservices.'],
+    tech:['Kotlin','Java','Spring Boot','GCP','Spanner','GraphQL','Kubernetes','Oracle','OAuth2 / IAM','DSL & Compilers'] },
+  { id:'epam', title:'Lead Software Engineer', company:'EPAM Systems', dates:'Dec 2018 – Apr 2019', from:2018.92, to:2019.25, loc:'',
+    hl:'Led a Big Data team of 7.',
+    bullets:['Led a Big Data team of <b>7 engineers</b> building scalable ingestion pipelines for document processing.'],
+    tech:['Kotlin','Scala','AWS'] },
+  { id:'tsystems', title:'Test Engineer → Senior Software Engineer', company:'T-Systems', dates:'Nov 2011 – Dec 2018', from:2011.83, to:2018.92, loc:'',
+    hl:'Cloud billing for Deutsche Telekom, VDV integration, "Person of the Year".',
+    bullets:['Built a cloud billing system for high-load workloads at <b>Deutsche Telekom Cloud</b>.',
+             'Delivered the billing integration with <b>VDV</b> (Association of German Transport Companies).',
+             'Built a system test automation framework.',
+             'Grew from Test Engineer to Senior Developer; awarded <b>"Person of the Year"</b>.'],
+    tech:['Java','Spring Boot','Kafka','Oracle','MongoDB','Angular','SOAP'] },
+];
+
+/* ---------- typed role line ---------- */
+(() => {
+  const el = document.getElementById('typed');
+  const lines = ['Senior Software Engineer', 'Backend / Distributed Systems', 'Kotlin · Java · Go', 'Event-driven · high-load · fintech'];
+  if (reduceMotion) { el.textContent = lines[0]; return; }
+  let li = 0, ci = 0, del = false;
+  (function tick() {
+    const s = lines[li];
+    el.textContent = s.slice(0, ci);
+    if (!del && ci < s.length) { ci++; setTimeout(tick, 55); }
+    else if (!del) { del = true; setTimeout(tick, 1800); }
+    else if (ci > 0) { ci--; setTimeout(tick, 25); }
+    else { del = false; li = (li + 1) % lines.length; setTimeout(tick, 300); }
+  })();
+})();
+
+/* ---------- event-flow background ---------- */
+(() => {
+  const c = document.getElementById('flow'), ctx = c.getContext('2d');
+  let W, H, nodes = [], edges = [], packets = [], dpr = Math.min(window.devicePixelRatio || 1, 2);
+  function build() {
+    W = c.clientWidth; H = c.clientHeight;
+    c.width = W * dpr; c.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.max(14, Math.min(34, Math.round(W * H / 38000)));
+    nodes = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.random() * H, r: 1.5 + Math.random() * 2 }));
+    edges = [];
+    nodes.forEach((a, i) => {
+      nodes.map((b, j) => ({ j, d: Math.hypot(a.x - b.x, a.y - b.y) }))
+        .filter(o => o.j !== i).sort((p, q) => p.d - q.d).slice(0, 2)
+        .forEach(o => { if (!edges.some(e => (e[0] === o.j && e[1] === i))) edges.push([i, o.j]); });
+    });
+    packets = [];
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineWidth = 1;
+    edges.forEach(([i, j]) => {
+      ctx.strokeStyle = 'rgba(122,162,255,0.13)';
+      ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+    });
+    nodes.forEach(n => { ctx.fillStyle = 'rgba(94,234,212,0.55)'; ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 7); ctx.fill(); });
+    packets.forEach(p => {
+      const a = nodes[p.e[0]], b = nodes[p.e[1]];
+      const x = a.x + (b.x - a.x) * p.t, y = a.y + (b.y - a.y) * p.t;
+      ctx.fillStyle = p.col; ctx.shadowColor = p.col; ctx.shadowBlur = 10;
+      ctx.beginPath(); ctx.arc(x, y, 2.2, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
+    });
+  }
+  function step() {
+    if (packets.length < 26 && Math.random() < 0.25 && edges.length) {
+      const e = edges[Math.floor(Math.random() * edges.length)];
+      packets.push({ e: Math.random() < .5 ? e : [e[1], e[0]], t: 0, v: 0.004 + Math.random() * 0.01, col: Math.random() < .7 ? '#5eead4' : '#7aa2ff' });
+    }
+    packets.forEach(p => p.t += p.v);
+    packets = packets.filter(p => p.t < 1);
+    draw();
+    if (visible) requestAnimationFrame(step);
+  }
+  let visible = true;
+  build();
+  if (reduceMotion) { draw(); }
+  else {
+    new IntersectionObserver(([en]) => { const was = visible; visible = en.isIntersecting; if (visible && !was) requestAnimationFrame(step); }).observe(c);
+    requestAnimationFrame(step);
+  }
+  let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { build(); draw(); }, 150); });
+})();
+
+/* ---------- counters + reveal ---------- */
+(() => {
+  const fmt = n => n.toLocaleString('en-US');
+  const run = el => {
+    const target = +el.dataset.count;
+    if (reduceMotion) { el.textContent = fmt(target); return; }
+    const t0 = performance.now(), dur = 1400;
+    (function f(t) {
+      const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+      el.textContent = fmt(Math.round(target * e));
+      if (k < 1) requestAnimationFrame(f);
+    })(t0);
+  };
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (!en.isIntersecting) return;
+    en.target.classList.add('in');
+    en.target.querySelectorAll('[data-count]').forEach(run);
+    io.unobserve(en.target);
+  }), { threshold: 0.25 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+})();
+
+/* ---------- timeline, year bar, skill filter ---------- */
+(() => {
+  const tl = document.getElementById('timeline'), yb = document.getElementById('years'), chips = document.getElementById('chips'), fs = document.getElementById('fstatus');
+  const MIN = 2011.5, MAX = 2026.9, pct = v => ((v - MIN) / (MAX - MIN) * 100);
+  const selected = new Set();
+
+  for (let y = 2012; y <= 2026; y += 2) {
+    const t = document.createElement('div'); t.className = 'tick'; t.style.left = pct(y) + '%'; t.textContent = y; yb.appendChild(t);
+  }
+  JOBS.forEach(j => {
+    const s = document.createElement('div');
+    s.className = 'seg'; s.dataset.id = j.id; s.title = j.company + ' · ' + j.dates;
+    s.style.left = pct(j.from) + '%'; s.style.width = Math.max(1.2, pct(j.to) - pct(j.from)) + '%';
+    s.addEventListener('click', () => openJob(j.id, true));
+    yb.appendChild(s);
+
+    const el = document.createElement('article');
+    el.className = 'job'; el.id = 'job-' + j.id;
+    el.innerHTML = `
+      <div class="card">
+        <button class="card-head" aria-expanded="false">
+          <span><span class="t">${j.title}</span> <span class="c">@ ${j.company}</span><span class="chev">›</span></span>
+          <span class="d">${j.dates}${j.loc ? ' · ' + j.loc : ''}</span>
+          <span class="hl">${j.hl}</span>
+        </button>
+        <div class="card-body"><div>
+          <ul>${j.bullets.map(b => `<li>${b}</li>`).join('')}</ul>
+          <div class="tags">${j.tech.map(t => `<span class="tag" data-t="${t}">${t}</span>`).join('')}</div>
+        </div></div>
+      </div>`;
+    el.querySelector('.card-head').addEventListener('click', () => toggle(el));
+    el.addEventListener('mouseenter', () => yb.querySelector(`.seg[data-id="${j.id}"]`).classList.add('on'));
+    el.addEventListener('mouseleave', () => { if (!el.classList.contains('open')) yb.querySelector(`.seg[data-id="${j.id}"]`).classList.remove('on'); });
+    tl.appendChild(el);
+  });
+
+  function toggle(el, force) {
+    const open = force ?? !el.classList.contains('open');
+    el.classList.toggle('open', open);
+    el.querySelector('.card-head').setAttribute('aria-expanded', open);
+    yb.querySelector(`.seg[data-id="${el.id.slice(4)}"]`).classList.toggle('on', open);
+  }
+  function openJob(id, scroll) {
+    const el = document.getElementById('job-' + id);
+    toggle(el, true);
+    if (scroll) el.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+  }
+  window.__openJob = openJob;
+
+  SKILLS.forEach(s => {
+    const n = JOBS.filter(j => j.tech.includes(s)).length;
+    const b = document.createElement('button');
+    b.className = 'chip'; b.setAttribute('aria-pressed', 'false');
+    b.innerHTML = `${s}<span class="n">${n}</span>`;
+    b.addEventListener('click', () => {
+      selected.has(s) ? selected.delete(s) : selected.add(s);
+      b.setAttribute('aria-pressed', selected.has(s));
+      apply();
+    });
+    chips.appendChild(b);
+  });
+
+  function apply() {
+    let years = 0, count = 0;
+    JOBS.forEach(j => {
+      const el = document.getElementById('job-' + j.id), seg = yb.querySelector(`.seg[data-id="${j.id}"]`);
+      const hit = selected.size === 0 || j.tech.some(t => selected.has(t));
+      el.classList.toggle('dim', !hit); seg.classList.toggle('dim', !hit);
+      el.classList.toggle('match', selected.size > 0 && hit);
+      el.querySelectorAll('.tag').forEach(t => t.classList.toggle('hit', selected.has(t.dataset.t)));
+      if (selected.size && hit) { count++; years += j.to - j.from; toggle(el, true); }
+    });
+    if (!selected.size) { fs.innerHTML = ''; JOBS.forEach(j => toggle(document.getElementById('job-' + j.id), false)); return; }
+    fs.innerHTML = `<span>${[...selected].join(' + ')} → ${count} role${count === 1 ? '' : 's'}, ~${Math.max(1, Math.round(years))} yr${Math.round(years) > 1 ? 's' : ''}</span><button type="button">reset</button>`;
+    fs.querySelector('button').addEventListener('click', () => {
+      selected.clear(); chips.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false')); apply();
+    });
+  }
+  openJob('blp', false);
+})();
+
+/* ---------- terminal ---------- */
+(() => {
+  const out = document.getElementById('tout'), inp = document.getElementById('tin'), hints = document.getElementById('hints');
+  const esc = s => s.replace(/[&<>]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const CMDS = {
+    help: () => `<span class="k">available commands</span>
+  whoami        short intro
+  experience    roles, newest first
+  impact        numbers from production
+  skills        tech stack
+  stack &lt;tech&gt;  where I used a technology, e.g. <span class="p">stack kotlin</span>
+  contact       how to reach me
+  cv            download the PDF
+  clear         clear the screen`,
+    whoami: () => `Mikhail Mozhzherin, Senior Software Engineer in Zurich.
+14+ years delivering backend systems in banking and fintech,
+and staying responsible for them in production.
+Kotlin · Java · Go. Event-driven, high-load, eventually consistent.`,
+    experience: () => JOBS.map(j => `<span class="k">${j.dates.padEnd(20)}</span> ${j.company} <span class="m">— ${j.title}</span>`).join('\n') + `\n<span class="m">tip: type "open swissquote" to expand a role on the page</span>`,
+    impact: () => `  100+   services migrated to Google Cloud
+ 1000+   mobile payments per hour
+   20+   white-label clients on the new platform
+  ~20k   documents per day
+  -20%   customer complaints (consent platform)
+  -20%   support workload (AI chat assistant)
+days→min onboarding time (KYC automation)`,
+    skills: () => SKILLS.map(s => `<span class="p">${s}</span>`).join('  '),
+    contact: () => `email     <a href="mailto:mozzerin@gmail.com">mozzerin@gmail.com</a>
+phone     <a href="tel:+41782562952">+41 78 256 2952</a>
+linkedin  <a href="https://www.linkedin.com/in/mozzerin" target="_blank" rel="noopener">linkedin.com/in/mozzerin</a>
+github    <a href="https://github.com/mozzerin" target="_blank" rel="noopener">github.com/mozzerin</a>
+permit    Swiss B, no sponsorship required`,
+    cv: () => { const a = document.createElement('a'); a.href = 'Mikhail_Mozhzherin_CV_Universal.pdf'; a.download = ''; a.click(); return 'downloading Mikhail_Mozhzherin_CV_Universal.pdf ...'; },
+    ls: () => 'experience/  impact.txt  skills.json  cv.pdf',
+    pwd: () => '/home/mikhail/zurich',
+    date: () => new Date().toString(),
+    'sudo hire-me': () => `<span class="p">[sudo] permission granted.</span> Next step: <a href="mailto:mozzerin@gmail.com">mozzerin@gmail.com</a>`,
+    sudo: () => 'try: sudo hire-me',
+    exit: () => 'nice try. you can close the tab though.',
+  };
+  function stack(arg) {
+    const q = arg.toLowerCase();
+    const skill = SKILLS.find(s => s.toLowerCase().includes(q)) || q;
+    const hits = JOBS.filter(j => j.tech.some(t => t.toLowerCase().includes(q)));
+    if (!hits.length) return `no roles found for "${esc(arg)}". try: ${SKILLS.slice(0, 6).join(', ').toLowerCase()}`;
+    return `<span class="k">${esc(skill)}</span> used at:\n` + hits.map(j => `  ${j.company.padEnd(20)} <span class="m">${j.dates}</span>`).join('\n');
+  }
+  function run(raw) {
+    const cmd = raw.trim();
+    print(`<span class="p">mikhail@zurich:~$</span> ${esc(cmd)}`);
+    if (!cmd) return;
+    const lc = cmd.toLowerCase();
+    if (lc === 'clear') { out.innerHTML = ''; return; }
+    let res;
+    if (CMDS[lc]) res = CMDS[lc]();
+    else if (lc.startsWith('stack ')) res = stack(cmd.slice(6).trim());
+    else if (lc.startsWith('open ')) {
+      const j = JOBS.find(j => (j.id + ' ' + j.company).toLowerCase().includes(lc.slice(5).trim()));
+      if (j) { window.__openJob(j.id, true); res = `opened ${j.company}`; } else res = 'no such role. see: experience';
+    }
+    else res = `command not found: ${esc(cmd)}. type <span class="p">help</span>`;
+    print(res + '\n');
+  }
+  function print(html) { const d = document.createElement('div'); d.innerHTML = html; out.appendChild(d); out.scrollTop = out.scrollHeight; }
+
+  const hist = []; let hi = 0;
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { const v = inp.value; if (v.trim()) hist.push(v); hi = hist.length; inp.value = ''; run(v); }
+    else if (e.key === 'ArrowUp') { if (hi > 0) { inp.value = hist[--hi]; e.preventDefault(); } }
+    else if (e.key === 'ArrowDown') { if (hi < hist.length) { inp.value = hist[++hi] || ''; e.preventDefault(); } }
+    else if (e.key === 'Tab') {
+      const m = Object.keys(CMDS).concat(['stack ', 'open ']).filter(k => k.startsWith(inp.value.toLowerCase()));
+      if (m.length === 1 && inp.value) { inp.value = m[0]; e.preventDefault(); }
+    }
+  });
+  ['help', 'whoami', 'impact', 'stack kotlin', 'contact', 'sudo hire-me'].forEach(c => {
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = c;
+    b.addEventListener('click', () => { run(c); inp.focus({ preventScroll: true }); });
+    hints.appendChild(b);
+  });
+  print(`<span class="m">Last login: ${new Date().toDateString()} on ttys001</span>\nWelcome. Type <span class="p">help</span> to start.\n`);
+  document.querySelector('.term').addEventListener('click', () => inp.focus({ preventScroll: true }));
+})();
+</script>
+</body>
+</html>
