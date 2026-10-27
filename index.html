@@ -411,7 +411,7 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- data ---------- */
-const SKILLS = ['Kotlin','Java','Go','Python','Scala','Spring Boot','Kafka','GCP','AWS','Kubernetes','GraphQL','Oracle','Spanner','MongoDB','OAuth2 / IAM','React','DSL & Compilers','AI / LLM'];
+const SKILLS = ['Kotlin','Java','Go','Python','Scala','Spring Boot','Kafka','GCP','AWS','Kubernetes','GraphQL','Oracle','PostgreSQL','Spanner','MongoDB','Elasticsearch','Nginx','OAuth2 / IAM','React','DSL & Compilers','AI / LLM'];
 
 const JOBS = [
   { id:'blp', title:'Lead Senior Software Engineer', company:'BLP Digital', dates:'Feb 2026 – Aug 2026', from:2026.08, to:2026.62, loc:'Zurich',
@@ -419,7 +419,7 @@ const JOBS = [
     bullets:['Led the analytics project across <b>3 teams</b>, covering <b>~10 Go and Python services</b>.',
              'Designed data processing pipelines that ingest <b>~20k documents per day</b>.',
              'Collected <b>50% more detailed data</b> on the same infrastructure through architectural changes to the pipelines.'],
-    tech:['Go','Python','Kubernetes','React','CI/CD','GitHub Actions','functional programming'] },
+    tech:['Go','Python','PostgreSQL','Kubernetes','React','CI/CD','GitHub Actions','functional programming'] },
   { id:'noumena', title:'Lead Senior Software Engineer', company:'Noumena Digital AG', dates:'Feb 2025 – Feb 2026', from:2025.08, to:2026.08, loc:'Zug',
     hl:'A new programming language and its tooling, used by ~100 developers.',
     bullets:['Core contributor to <b>NPL</b>, a new programming language for off-chain smart-contract logic: language design, compiler, LSP and IDE tooling.',
@@ -435,7 +435,7 @@ const JOBS = [
              'Integrated an AI chat assistant into the banking app, <b>cutting support workload by 20%</b>; built a portal for support agents.',
              'Re-architected the white-label eBanking configuration platform; <b>20+ white-label clients</b> migrated to it.',
              'Mentored an offshore team of <b>5–7 engineers</b>; one grew from junior to senior.'],
-    tech:['Java','Spring Boot','Oracle','PL/SQL','Liquibase','OAuth2 / IAM','Kubernetes','React','AI / LLM'] },
+    tech:['Java','Spring Boot','Oracle','PL/SQL','Liquibase','Elasticsearch','Nginx','OAuth2 / IAM','Kubernetes','React','AI / LLM'] },
   { id:'prosper', title:'Senior Software Engineer', company:'Prosper Funding', dates:'Apr 2019 – Mar 2022', from:2019.25, to:2022.17, loc:'',
     hl:'100+ services to GCP, a team of up to 18, 20% fewer complaints.',
     bullets:['Led an engineering team of <b>up to 18 people</b> as Scrum Master; improved communication across <b>3 cross-functional teams</b>.',
@@ -445,7 +445,7 @@ const JOBS = [
              'Architected a high-concurrency consent and preference system that <b>cut customer complaints by 20%</b>.',
              'Built a Kotlin DSL that made consent rules readable for the legal team.',
              'Introduced GraphQL federation across microservices.'],
-    tech:['Kotlin','Java','Spring Boot','GCP','Spanner','GraphQL','Kubernetes','Oracle','OAuth2 / IAM','DSL & Compilers'] },
+    tech:['Kotlin','Java','Spring Boot','GCP','Spanner','GraphQL','Kubernetes','Oracle','PostgreSQL','Elasticsearch','OAuth2 / IAM','DSL & Compilers'] },
   { id:'epam', title:'Lead Software Engineer', company:'EPAM Systems', dates:'Dec 2018 – Apr 2019', from:2018.92, to:2019.25, loc:'',
     hl:'Led a Big Data team of 7.',
     bullets:['Led a Big Data team of <b>7 engineers</b> building scalable ingestion pipelines for document processing.'],
@@ -692,6 +692,9 @@ permit    Swiss B, no sponsorship required`,
     'Kubernetes': { 'Prosper Funding': 'services with Helm on GCP', 'Swissquote Bank': 'banking services', 'BLP Digital': '~10 Go and Python services' },
     'GraphQL': { 'Prosper Funding': 'GraphQL federation across microservices' },
     'Oracle': { 'T-Systems': 'PL/SQL, Liquibase', 'Prosper Funding': 'PL/SQL, Liquibase, MSSQL', 'Swissquote Bank': 'PL/SQL, Liquibase' },
+    'PostgreSQL': { 'BLP Digital': 'data for the analytics services', 'Prosper Funding': 'backend services, next to Oracle and MSSQL' },
+    'Elasticsearch': { 'Prosper Funding': 'search in backend services', 'Swissquote Bank': 'search in banking services' },
+    'Nginx': { 'Swissquote Bank': 'web and proxy layer for bank services' },
     'MongoDB': { 'T-Systems': 'billing platform' },
     'OAuth2 / IAM': { 'Prosper Funding': 'API security', 'Swissquote Bank': 'API security in a regulated bank', 'Noumena Digital AG': 'platform authorization model, multi-tenant IAM' },
     'React': { 'Swissquote Bank': 'frontend work', 'Noumena Digital AG': 'frontend work', 'BLP Digital': 'frontend work' },
