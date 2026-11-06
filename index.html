@@ -422,7 +422,7 @@ const JOBS = [
     tech:['Go','Python','PostgreSQL','Kubernetes','React','CI/CD','GitHub Actions','functional programming'] },
   { id:'noumena', title:'Lead Senior Software Engineer', company:'Noumena Digital AG', dates:'Feb 2025 – Feb 2026', from:2025.08, to:2026.08, loc:'Zug',
     hl:'A new programming language and its tooling, used by ~100 developers.',
-    bullets:['Core contributor to <b>NPL</b>, a new programming language for off-chain smart-contract logic: language design, compiler, LSP and IDE tooling.',
+    bullets:['Core contributor to the tooling for <b>NPL</b>, a new programming language for off-chain smart-contract logic: CLI, LSP and IDE plugins; also contributed to the compiler.',
              'Built and open-sourced the <a href="https://github.com/NoumenaDigital/npl-cli" target="_blank" rel="noopener">NPL CLI</a>, used by <b>~100 developers</b>; with the LSP and IDE plugins the whole workflow runs in the IDE and terminal.',
              'Worked on the authorization model and multi-tenant architecture serving <b>5 tenants</b>.',
              'Developed a distributed digital asset platform integrated with the Stellar blockchain.',
@@ -698,7 +698,7 @@ permit    Swiss B, no sponsorship required`,
     'MongoDB': { 'T-Systems': 'billing platform' },
     'OAuth2 / IAM': { 'Prosper Funding': 'API security', 'Swissquote Bank': 'API security in a regulated bank', 'Noumena Digital AG': 'platform authorization model, multi-tenant IAM' },
     'React': { 'Swissquote Bank': 'frontend work', 'Noumena Digital AG': 'frontend work', 'BLP Digital': 'frontend work' },
-    'DSL & Compilers': { 'Prosper Funding': 'Kotlin DSL that legal could read', 'Noumena Digital AG': 'NPL: a new programming language, compiler and LSP' },
+    'DSL & Compilers': { 'Prosper Funding': 'Kotlin DSL that legal could read', 'Noumena Digital AG': 'NPL: tooling for a new programming language, contributions to the compiler' },
     'AI / LLM': { 'Swissquote Bank': 'AI chat assistant in the banking app (-20% support load)', 'Noumena Digital AG': 'MCP server for AI agents' },
   };
   const yearsOf = s => JOBS.filter(j => j.tech.includes(s)).reduce((a, j) => a + (j.to - j.from), 0);
